@@ -1,0 +1,98 @@
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+      routes:
+        - id: Reservation
+          uri: http://localhost:8081
+          predicates:
+            - Path=/reservations/** 
+        - id: Payment
+          uri: http://localhost:8082
+          predicates:
+            - Path=/payments/** 
+        - id: Room
+          uri: http://localhost:8083
+          predicates:
+            - Path=/rooms/**,/companyManagements/**,/dashBoards/**
+        - id: MyPage
+          uri: http://localhost:8084
+          predicates:
+            - Path= /myPages/**
+        - id: kakaotalk
+          uri: http://localhost:8085
+          predicates:
+            - Path= 
+        - id: Notice
+          uri: http://localhost:8086
+          predicates:
+            - Path=/notices/** 
+        - id: company
+          uri: http://localhost:8087
+          predicates:
+            - Path=/companies/** 
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: Reservation
+          uri: http://Reservation:8080
+          predicates:
+            - Path=/reservations/** 
+        - id: Payment
+          uri: http://Payment:8080
+          predicates:
+            - Path=/payments/** 
+        - id: Room
+          uri: http://Room:8080
+          predicates:
+            - Path=/rooms/**,/companyManagements/**,/dashBoards/**
+        - id: MyPage
+          uri: http://MyPage:8080
+          predicates:
+            - Path= /myPages/**
+        - id: kakaotalk
+          uri: http://kakaotalk:8080
+          predicates:
+            - Path= 
+        - id: Notice
+          uri: http://Notice:8080
+          predicates:
+            - Path=/notices/** 
+        - id: company
+          uri: http://company:8080
+          predicates:
+            - Path=/companies/** 
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080
